@@ -1,7 +1,7 @@
-// TODO: Include packages needed for this application
+// Included packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-// TODO: Create an array of questions for user input
+// Create an array of questions for user input
 inquirer.prompt([
     { 
         type: 'input',
@@ -118,10 +118,12 @@ inquirer.prompt([
         message: 'Which license would you like to include?',
         name: 'license',
         choices: ['MIT', 'Other', 'GPLv2', 'Apache'],
-        when: ({confirmLicenses}) => {
-            if (!confirmLicenses) {
+        when: ({licenseConfirm}) => {
+            if (!licenseConfirm) {
                 return false;
-            } 
+            } else {
+                return true;
+            }
         }
     },
 ]);
