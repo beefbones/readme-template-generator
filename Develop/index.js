@@ -1,8 +1,10 @@
 // Included packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+// js file for generating markdown
+const generateMarkdown = require('./utils/generateMarkdown.js')
 // Create an array of questions for user input
-inquirer.prompt([
+const questions = [
     { 
         type: 'input',
         message: 'Please enter your full name: ',
@@ -70,6 +72,19 @@ inquirer.prompt([
     },
     {
         type: 'input',
+        message: 'Please enter installation instructions for your project: ',
+        name: 'installation',
+        validate: installationInput => {
+            if (!installationInput) {
+                console.log('You must enter installation instructions!')
+                return false;
+            } else {
+                 return true;
+            }
+        }
+    },
+    {
+        type: 'input',
         message: 'Please enter instructions for usage of this project: ',
         name: 'usage',
         validate: usageInput => {
@@ -116,8 +131,8 @@ inquirer.prompt([
     {
         type: 'list',
         message: 'Which license would you like to include?',
-        name: 'license',
-        choices: ['MIT', 'Other', 'GPLv2', 'Apache'],
+        name: 'licenses',
+        choices: ['MIT', 'GPLv2', 'Apache'],
         when: ({licenseConfirm}) => {
             if (!licenseConfirm) {
                 return false;
@@ -125,16 +140,33 @@ inquirer.prompt([
                 return true;
             }
         }
-    },
-]);
+    }
+];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// Create a function to write README file
+function writeToFile(data) {
+    fs.writeFile('./README.md', data, err => {
+        if (err) {
+            reject (err)
+            return
+        } else {
+            return true;
+        }
+    } )
+}
 
-// TODO: Create a function to initialize app
-// function init() {
-//     return inquirer.prompt(questions);
-// }
+// Create a function to initialize app
+function init() {
+    return inquirer.prompt(questions);
+}
 
-// // Function call to initialize app
-// init();
+// Function call to initialize app
+init()
+.then(userInput => {
+    return generateMarkdown(userInput)
+})
+.then(readmeInfo => {
+    console.log('Success! Navigate to the README.md file that has been created')
+    return writeToFile(readmeInfo)
+})
+
