@@ -145,7 +145,7 @@ const questions = [
 
 // Create a function to write README file
 function writeToFile(data) {
-    fs.writeFile('./README.md', data, err => {
+    fs.writeFile('./newREADME.md', data, err => {
         if (err) {
             reject (err)
             return
@@ -166,7 +166,6 @@ init()
     return generateMarkdown(userInput)
 })
 .then(readmeInfo => {
-    console.log('Success! Navigate to the README.md file that has been created')
+    console.log('Success! Navigate to the newREADME.md file that has been created')
     return writeToFile(readmeInfo)
 })
-
