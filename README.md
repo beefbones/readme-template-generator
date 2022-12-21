@@ -27,7 +27,8 @@
   To install, open the integrated terminal for the application, run 'npm install', then initialize the application using 'node index.js'
 
   ## Usage
-  run 'node index.js' in the terminal, and follow the prompts
+  Run 'node index.js' in the terminal, and follow the prompts
+  Or watch this video to see the application being used [Link](https://drive.google.com/file/d/1vLHCX85MAgWO0xaBTTOZzUcAkI1eiKWU/view)
 
   ## License
     This project is covered under the MIT license. To learn more about what this means, click the license badge at the top.
